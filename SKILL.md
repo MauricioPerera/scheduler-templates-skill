@@ -1,13 +1,14 @@
 ---
 name: scheduler-templates
 description: >
-  Use when Codex needs to create, manage, or reason about recurring automated tasks
-  (automations) and one-shot background tasks using the local-scheduler MCP server.
-  This skill covers: scheduling periodic commands/scripts, choosing between templates
-  and custom automations, parameter interpolation, and monitoring task results.
-  Trigger when the user says things like: "check disk every 5 minutes",
-  "build this project every hour", "run this script periodically", "schedule a task",
-  "monitor X automatically", or when working with the local-scheduler MCP tools.
+  Use when an MCP-enabled agent needs to create, manage, or reason about recurring
+  automated tasks (automations) and one-shot background tasks using the
+  local-scheduler MCP server. This skill covers: scheduling periodic
+  commands/scripts, choosing between templates and custom automations, parameter
+  interpolation, and monitoring task results. Trigger when the user says things
+  like: "check disk every 5 minutes", "build this project every hour",
+  "run this script periodically", "schedule a task", "monitor X automatically",
+  or when working with the local-scheduler MCP tools.
 ---
 
 # Scheduler Templates Skill
@@ -17,7 +18,7 @@ description: >
 - The user wants an action to run automatically on a schedule.
 - The user mentions repeating intervals (every N minutes/hours).
 - The user asks to "monitor", "check", "build", or "sync" something periodically.
-- You are deciding between `create_automation` (fully custom) and `instantiate_template` (pre-built recipe).
+- The agent is deciding between `create_automation` (fully custom) and `instantiate_template` (pre-built recipe).
 
 ## Available MCP Tools
 
@@ -39,7 +40,7 @@ description: >
 | ID | Default Action | Default Interval | When to Use |
 |---|---|---|---|
 | `build-project` | `dotnet build` | 60 min | User wants to build a .NET project periodically |
-| `disk-check` | `Get-PSDrive C` | 5 min | User wants to monitor disk space |
+| `disk-check` | `Get-PSDrive C \| Select-Object Used,Free` | 5 min | User wants to monitor disk space |
 | `git-sync` | `git pull` | 30 min | User wants to keep a repo synced |
 
 ## Decision Flow

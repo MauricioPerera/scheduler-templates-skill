@@ -1,44 +1,50 @@
 # Scheduler Templates Skill
 
-Skill de Codex para automatizaciones con el `local-scheduler-mcp`.
+Skill for MCP-enabled agents to manage local automation scheduling via the `local-scheduler-mcp` server.
 
-## Qué hace
+## What it does
 
-Provee al agente de Codex contexto especializado sobre cuándo y cómo usar las tools del `local-scheduler-mcp`. Incluye:
+Provides any MCP-enabled agent with specialized context on when and how to use the `local-scheduler-mcp` tools. Includes:
 
 - **Built-in templates**: `build-project`, `disk-check`, `git-sync`
-- **Flujo de decisión**: template vs. custom automation vs. one-shot task
-- **Interpolación de parámetros**: `${key}` con JSON string
-- **Patrones comunes**: builds periódicos, monitores, tareas de larga duración
+- **Decision flow**: template vs. custom automation vs. one-shot task
+- **Parameter interpolation**: `${key}` with JSON string
+- **Common patterns**: periodic builds, monitors, long-running tasks
 
-## Instalación
+## Installation
+
+### Codex Desktop
 
 ```bash
 cd ~/.codex/skills
 git clone https://github.com/MauricioPerera/scheduler-templates-skill.git scheduler-templates
 ```
 
-## Templates disponibles
+### Other MCP-enabled agents
 
-| ID | Acción | Intervalo default | Uso |
+Copy `SKILL.md` into your agent's context or prompt injection pipeline. The file is a plain Markdown instruction set that tells any LLM how and when to use the scheduler MCP tools.
+
+## Available Templates
+
+| ID | Default Action | Default Interval | Use |
 |---|---|---|---|
-| `build-project` | `dotnet build` | 60 min | Compilar proyectos .NET |
-| `disk-check` | `Get-PSDrive C` | 5 min | Monitorear espacio en disco |
-| `git-sync` | `git pull` | 30 min | Mantener repo sincronizado |
+| `build-project` | `dotnet build` | 60 min | Build .NET projects |
+| `disk-check` | `Get-PSDrive C \| Select-Object Used,Free` | 5 min | Monitor disk space |
+| `git-sync` | `git pull` | 30 min | Keep repo synced |
 
-## Requiere
+## Requirements
 
-- [local-scheduler-mcp](https://github.com/MauricioPerera/local-scheduler-mcp) v3.1.0+
-- Codex Desktop o cualquier agente con soporte MCP
+- [local-scheduler-mcp](https://github.com/MauricioPerera/local-scheduler-mcp) v3.1.1+
+- Any agent with MCP stdio transport support
 
-## Estructura
+## Structure
 
 ```
 scheduler-templates/
-├── SKILL.md          # Contexto inyectado al LLM
-└── README.md         # Documentación humana
+├── SKILL.md          # LLM context / instructions (agent-agnostic)
+└── README.md         # Human documentation
 ```
 
-## Licencia
+## License
 
 MIT
