@@ -62,7 +62,7 @@ To pass values, use the `params` argument as a **JSON string**:
 
 Example: `instantiate_template` with `templateId: "build-project"` and `params: '{"repoPath":"D:/repos/foo"}'` produces `cd D:/repos/foo && dotnet build`.
 
-Missing placeholders are left untouched (`${other}` stays literal if not provided).
+If the template declares `requiredParams`, missing values produce an error before execution. Otherwise, optional placeholders (`${other}`) are left untouched if not provided.
 
 ## Common Patterns
 
@@ -95,6 +95,8 @@ timeoutMs: 600000
 
 ## Notes
 
+- **Interpolation security** (v3.1.1+): Interpolated values must pass a character whitelist (alphanumeric, path separators, dots, spaces, tilde). Shell metacharacters are rejected.
+- **Required params**: Templates can declare `requiredParams`. Missing values return an error instead of sending `${key}` literal to the shell.
 - `intervalMinutes` must be a positive number. Very low values (< 1) will fire rapidly.
 - The scheduler ticks every 30 seconds; the first run may happen within that window.
 - Notifications accumulate until `ack_notifications` is called or the user reads them.
