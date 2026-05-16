@@ -58,10 +58,10 @@ Templates support `${key}` placeholders in `command` or `script`.
 To pass values, use the `params` argument as a **JSON string**:
 
 ```json
-{ "repoPath": "D:/repos/SnakeGame" }
+{ "repoPath": "D:/repos/my-project" }
 ```
 
-Example: `instantiate_template` with `templateId: "build-project"` and `params: '{"repoPath":"D:/repos/foo"}'` produces `cd D:/repos/foo && dotnet build`.
+Example: `instantiate_template` with `templateId: "build-project"` and `params: '{"repoPath":"D:/repos/my-project"}'` produces `cd D:/repos/my-project && dotnet build`.
 
 If the template declares `requiredParams`, missing values produce an error before execution. Otherwise, optional placeholders (`${other}`) are left untouched if not provided.
 
@@ -71,9 +71,9 @@ If the template declares `requiredParams`, missing values produce an error befor
 ```
 tool: instantiate_template
 templateId: build-project
-name: "Build SnakeGame"
+name: "Build MyProject"
 intervalMinutes: 60
-cwd: "D:/repos/SnakeGame"
+cwd: "D:/repos/my-project"
 ```
 
 **Custom monitor with inline script**
